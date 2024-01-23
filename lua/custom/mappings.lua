@@ -8,6 +8,10 @@ M.general = {
     ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "Window up" },
     ["<C-u>"] = { "<C-u>zz", { desc = "Half page up", remap = false } },
     ["<C-d>"] = { "<C-d>zz", { desc = "Half page down", remap = false } },
+    ["<leader>ln"] = { "<cmd> set nu! <CR>", "Toggle line number" },
+    ["<leader>lrn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
+    ["n"] = { "nzzzv", { desc = "Next match", remap = false, }, },
+    ["N"] = { "Nzzzv", { desc = "Prev match", remap = false, }, },
   },
   x = {
     ["<leader>p"] = { "\"_dP", { silent = true, expr = true, remap = false } }
@@ -18,6 +22,18 @@ M.dap = {
   plugin = true,
   n = {
     ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>" },
+  }
+}
+
+local opts = { noremap = true, silent = true }
+M.neogen = {
+	plugin = true,
+  n = {
+    -- ["<leader>nf"] = { ":lua require('neogen').generate({ type = 'func' })<CR>", opts },
+    ["<Leader>nf"] = { "<cmd>Neogen func<CR>", opts },
+    ["<leader>nc"] = { ":lua require('neogen').generate({ type = 'class' })<CR>", opts },
+    ["<leader>nt"] = { ":lua require('neogen').generate({ type = 'type' })<CR>", opts },
+    ["<leader>nF"] = { ":lua require('neogen').generate({ type = 'file' })<CR>", opts },
   }
 }
 

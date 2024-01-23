@@ -22,6 +22,8 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local ruff_on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -48,17 +50,14 @@ end
 -- Configure `ruff-lsp`.
 -- See: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#ruff_lsp
 -- For the default config, along with instructions on how to customize the settings
-require("lspconfig").ruff_lsp.setup {
-  on_attach = on_attach,
+lspconfig.ruff_lsp.setup({
+  on_attach = ruff_on_attach,
+  capabilities = capabilities,
+  filetypes = { "python" },
   init_options = {
     settings = {
       -- Any extra CLI arguments for `ruff` go here.
       args = {},
     }
   }
-}
-
-lspconfig.ruff_lsp.setup({
-  on_attach = ruff_on_attach,
-  filetypes = { "python" }
 })
