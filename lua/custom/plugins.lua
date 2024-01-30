@@ -43,7 +43,9 @@ local plugins = {
     lazy = false,
   },
   {
-    "catppuccin/nvim", name = "catppuccin", priority = 1000
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
   },
   {
     "danymat/neogen",
@@ -57,7 +59,6 @@ local plugins = {
   },
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
   },
   {
     "mfussenegger/nvim-dap",
@@ -194,6 +195,20 @@ local plugins = {
       require("nvim-surround").setup({})
     end,
   },
+  {
+    "smoka7/hop.nvim",
+    lazy = false,
+    version = "*",
+    opts = function()
+      require("custom.configs.hop")
+    end,
+  },
+  {
+    "andweeb/presence.nvim",
+    opts = function()
+      require("custom.configs.presence")
+    end,
+    lazy = false,
   },
 }
 

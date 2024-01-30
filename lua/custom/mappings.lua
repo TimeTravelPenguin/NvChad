@@ -2,19 +2,19 @@ local M = {}
 
 M.general = {
   n = {
-    ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "Window left" },
-    ["<C-l>"] = { "<cmd> TmuxNavigateRight<CR>", "Window right" },
-    ["<C-j>"] = { "<cmd> TmuxNavigateDown<CR>", "Window down" },
-    ["<C-k>"] = { "<cmd> TmuxNavigateUp<CR>", "Window up" },
-    ["<C-u>"] = { "<C-u>zz", { desc = "Half page up", remap = false } },
-    ["<C-d>"] = { "<C-d>zz", { desc = "Half page down", remap = false } },
-    ["<leader>ln"] = { "<cmd> set nu! <CR>", "Toggle line number" },
-    ["<leader>lrn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
-    ["n"] = { "nzzzv", { desc = "Next match", remap = false, }, },
-    ["N"] = { "Nzzzv", { desc = "Prev match", remap = false, }, },
+    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<CR>", "Window left" },
+    ["<C-l>"] = { "<cmd>TmuxNavigateRight<CR>", "Window right" },
+    ["<C-j>"] = { "<cmd>TmuxNavigateDown<CR>", "Window down" },
+    ["<C-k>"] = { "<cmd>TmuxNavigateUp<CR>", "Window up" },
+    ["<C-u>"] = { "<C-u>zz", "Half page up", { remap = false } },
+    ["<C-d>"] = { "<C-d>zz", "Half page down", { remap = false } },
+    ["<leader>ln"] = { "<cmd>set nu!<CR>", "Toggle line number" },
+    ["<leader>lrn"] = { "<cmd>set rnu!<CR>", "Toggle relative line number" },
+    ["n"] = { "nzzzv", "Next match", { remap = false, }, },
+    ["N"] = { "Nzzzv", "Prev match", { remap = false, }, },
   },
   x = {
-    ["<leader>p"] = { "\"_dP", { silent = true, expr = true, remap = false } }
+    ["<leader>p"] = { "\"_dP", "Paste without yanking", { silent = true, expr = true, remap = false } }
   }
 }
 
