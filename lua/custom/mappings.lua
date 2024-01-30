@@ -21,57 +21,83 @@ M.general = {
 M.dap = {
   plugin = true,
   n = {
-    ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>" },
-  }
+    ["<F5>"] = { "<cmd>DapContinue<CR>", "Dap: Run" },
+    ["<F10>"] = { "<cmd>DapStepOver<CR>", "Dap: Step Over" },
+    ["<F11>"] = { "<cmd>DapStepInto<CR>", "Dap: Step Into" },
+    ["<F12>"] = { "<cmd>DapStepOut<CR>", "Dap: Step Out" },
+    ["<Leader>b"] = { "<cmd>DapToggleBreakpoint<CR>", "Dap: Toggle Breakpoint" },
+    ["<Leader>lp"] = {
+      function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+      "Dap: Set Logpoint",
+    },
+    ["<Leader>dr"] = { "<cmd>DapToggleRepl<CR>", "Dap: Toggle Repl" },
+    ["<Leader>dl"] = { function() require('dap').run_last() end, "Dap: Run Last" },
+  },
+}
+
+M.dap_ui = {
+  plugin = true,
+  n = {
+    ["<Leader>df"] = { function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.frames)
+    end },
+    ["<Leader>ds"] = { function()
+      local widgets = require('dap.ui.widgets')
+      widgets.centered_float(widgets.scopes)
+    end },
+    ["<Leader>dh"] = { function()
+      require('dap.ui.widgets').hover()
+    end },
+    ["<Leader>dp"] = { function()
+      require('dap.ui.widgets').preview()
+    end },
+  },
+
+  v = {
+    ["<Leader>dh"] = { function()
+      require('dap.ui.widgets').hover()
+    end },
+    ["<Leader>dp"] = { function()
+      require('dap.ui.widgets').preview()
+    end },
+  },
 }
 
 local opts = { noremap = true, silent = true }
 M.neogen = {
-	plugin = true,
-  n = {
-    -- ["<leader>nf"] = { ":lua require('neogen').generate({ type = 'func' })<CR>", opts },
-    ["<Leader>nf"] = { "<cmd>Neogen func<CR>", opts },
-    ["<leader>nc"] = { ":lua require('neogen').generate({ type = 'class' })<CR>", opts },
-    ["<leader>nt"] = { ":lua require('neogen').generate({ type = 'type' })<CR>", opts },
-    ["<leader>nF"] = { ":lua require('neogen').generate({ type = 'file' })<CR>", opts },
-  }
-}
-
-local skip_opts = { skip_groups = true, jump = true }
-M.trouble = {
   plugin = true,
   n = {
-    ["tro"] = { "<cmd>Trouble<CR>", "Open Trouble" },
-    ["trc"] = { "<cmd>TroubleClose<CR>", "Close Trouble" },
-    ["trx"] = { "<cmd>TroubleToggle<CR>", "Toggle Trouble" },
-    ["trw"] = { "<cmd>TroubleToggle workspace_diagnostics<CR>", "Set Trouble: Workplace" },
-    ["trd"] = { "<cmd>TroubleToggle document_diagnostics<CR>", "Set Trouble: Documents" },
-    ["trq"] = { "<cmd>TroubleToggle quickfix<CR>", "Set Trouble: Quickfix" },
-    ["trL"] = { "<cmd>TroubleToggle loclist<CR>", "Set Trouble: Loclist" },
-    ["trgR"] = { "<cmd>TroubleToggle lsp_references<CR>", "Set Trouble: LSP References" },
-
-    ["trn"] = { "trouble.next", skip_opts, { desc = "Trouble: Next" } },
-    ["trp"] = { "trouble.previous", skip_opts, { desc = "Trouble: Previous" } },
-    ["trf"] = { "trouble.first", skip_opts, { desc = "Trouble: First" } },
-    ["trl"] = { "trouble.last", skip_opts, { desc = "Trouble: Last" } },
-  }
+    -- ["<leader>nf"] = { ":lua require('neogen').generate({ type = 'func' })<CR>", opts },
+    ["<Leader>nf"] = { "<cmd>Neogen func<CR>", "Neogen: Document Function", opts },
+    ["<leader>nc"] = { "<cmd>Neogen class<CR>", "Neogen: Document Class", opts },
+    ["<leader>nt"] = { "<cmd>Neogen type<CR>", "Neogen: Document Type", opts },
+    ["<leader>nF"] = { "<cmd>Neogen file<CR>", "Neogen: Document File", opts },
+  },
 }
 
+M.trouble = require("custom.mappings.trouble")
+-- require("core.utils").load_mappings("trouble")
+
+local opts = { noremap = true, silent = true }
 M.dap_python = {
   plugin = true,
   n = {
-    ["<leader>dpr"] = {
-      function()
-        require('dap-python').test_method()
-      end
-    }
+    ["<leader>dn"] = { ":lua require('dap-python').test_method()<CR>", "python-dap: Test method", opts },
+    ["<leader>df"] = { ":lua require('dap-python').test_class()<CR>", "python-dap: Test class", opts },
+  },
+  v = {
+    ["<leader>ds"] = { "<ESC>:lua require('dap-python').debug_selection()<CR>", "python-dap: Debug selected", opts },
+  },
+}
+
+M.venv_selector = {
+  plugin = true,
+  n = {
+    ["<leader>vs"] = { "<cmd>VenvSelect<cr>", "VenvSelector" },
+    ["<leader>vc"] = { "<cmd>VenvSelectCached<cr>", "VenvSelector (Cache)" },
   }
 }
 
-M.lspconfig = {
-  n = {
-    ["[e"] = { vim.diagnostic.open_float },
-  },
-}
 
 return M

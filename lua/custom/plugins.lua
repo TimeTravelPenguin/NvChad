@@ -1,5 +1,11 @@
 local plugins = {
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = require("custom.opts.copilot"),
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = require("custom.opts.treesitter"),
   },
@@ -30,7 +36,7 @@ local plugins = {
           end
         end
       end,
-    }
+    },
   },
   {
     "ThePrimeagen/vim-be-good",
@@ -45,7 +51,7 @@ local plugins = {
     dependencies = "nvim-treesitter/nvim-treesitter",
     version = "*",
     config = function(_, opts)
-      require "custom.configs.neogen"
+      require("custom.configs.neogen")
       require("core.utils").load_mappings("neogen")
     end,
   },
@@ -57,19 +63,12 @@ local plugins = {
     "mfussenegger/nvim-dap",
     config = function(_, opts)
       require("core.utils").load_mappings("dap")
-    end
+    end,
   },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
-    config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-      dapui.setup()
-      dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-      dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-      dap.listeners.before.event_exited["dapui_config"] = dapui.close
-    end
+    config = require("custom.configs.dap-ui"),
   },
   {
     "mfussenegger/nvim-dap-python",
@@ -77,11 +76,19 @@ local plugins = {
     dependencies = {
       "mfussenegger/nvim-dap",
       "rcarriga/nvim-dap-ui",
+      "linux-cultist/venv-selector.nvim",
     },
-    config = function(_, opts)
-      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-      require("dap-python").setup(path)
-      require("core.utils").load_mappings("dap_python")
+    config = require("custom.configs.dap-python"),
+  },
+  {
+    "folke/neodev.nvim",
+    event = "BufEnter",
+    -- Setup in config/lspconfig.lua
+    opts = {},
+    config = function()
+      require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      })
     end,
   },
   {
@@ -148,14 +155,36 @@ local plugins = {
     },
     config = require("custom.configs.conform"),
   },
+  {
+    "mrcjkb/haskell-tools.nvim",
+    version = "^3", -- Recommended
+    ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+    config = function()
+      require("custom.configs.haskell-tools")
     end,
-    config = function(_, opts)
-      require("core.utils").load_mappings("trouble")
-    end
   },
   {
-    "vim-unimpaired",
+    "luc-tielen/telescope_hoogle",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      local telescope = require("telescope")
+      telescope.load_extension("hoogle")
+    end,
+  },
+  {
+    "linux-cultist/venv-selector.nvim",
+    dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
+    opts = {},
+    config = function()
+      require("custom.configs.venv-selector")
+      require("core.utils").load_mappings("venv_selector")
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
+    config = require("custom.configs.trouble"),
   },
   {
     "kylechui/nvim-surround",
@@ -163,7 +192,8 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       require("nvim-surround").setup({})
-    end
+    end,
+  },
   },
 }
 
