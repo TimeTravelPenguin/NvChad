@@ -17,7 +17,7 @@ local py_sources = {
     diagnostics.mypy,
     diagnostics.pylint,
     diagnostics.ruff,
-  }
+  },
 }
 
 local hs_sources = {
@@ -25,7 +25,7 @@ local hs_sources = {
   filetypes = { "haskell" },
   sources = {
     formatting.fourmolu,
-  }
+  },
 }
 
 local sh_sources = {
@@ -36,7 +36,7 @@ local sh_sources = {
     formatting.shellharden,
     diagnostics.shellcheck,
     diagnostics.zsh,
-  }
+  },
 }
 
 local docker_sources = {
@@ -78,7 +78,6 @@ local yaml_sources = {
   },
 }
 
-
 local git_sources = {
   name = "Git_Sources",
   filetypes = { "gitrebase", "gitcommit" },
@@ -87,7 +86,6 @@ local git_sources = {
     diagnostics.gitlint,
   },
 }
-
 
 local general_sources = {
   name = "General_Sources",
@@ -100,19 +98,27 @@ local general_sources = {
   },
 }
 
-local other_sources = {
-  name = "Other_Sources",
-  filetypes = { "json", "yaml", "markdown", "toml" },
+local json_sources = {
+  -- Not including prettier here. Added to prettier_sources.
+  name = "JSON_Sources",
+  filetypes = { "json" },
   sources = {
-    formatting.prettier.with({
-      filetypes = { "json", "yaml", "markdown" },
-      extra_filetypes = { "toml" },
-    }),
     diagnostics.jsonlint,
   },
 }
 
-null_ls.register(
+local prettier_sources = {
+  name = "Prettier_Sources",
+  filetypes = { "json", "yaml", "markdown", "css", "html", "javascript", "toml", "xml", "sh" },
+  sources = {
+    formatting.prettier.with({
+      filetypes = { "json", "yaml", "markdown", "css", "html", "javascript" },
+      extra_filetypes = { "toml", "xml", "sh" },
+    }),
+  },
+}
+
+local sources = {
   py_sources,
   hs_sources,
   sh_sources,
@@ -122,5 +128,8 @@ null_ls.register(
   yaml_sources,
   git_sources,
   general_sources,
-  other_sources
-)
+  json_sources,
+  prettier_sources,
+}
+
+null_ls.register(sources)

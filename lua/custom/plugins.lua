@@ -1,6 +1,10 @@
 local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
+    opts = require("custom.opts.treesitter"),
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
     dependencies = {
       -- src: https://www.lazyvim.org/plugins/treesitter#nvim-treesitter-textobjects
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -83,40 +87,67 @@ local plugins = {
   {
     "nvimtools/none-ls.nvim",
     opts = function()
-      return require "custom.configs.null-ls"
+      return require("custom.configs.null-ls")
     end,
   },
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- General
+        "prettier",
+        "prettierd",
+        "typos",
+        -- Python
         "codespell",
         "debugpy",
         "docformatter",
         "misspell",
         "mypy",
-        "prettier",
         "pylint",
         "pyright",
-        "typos",
         "ruff",
         "ruff-lsp",
+        -- Haskell
+        "haskell-debug-adapter",
+        "haskell-language-server",
+        "fourmolu",
+        -- Lua
+        "lua-language-server",
+        "luacheck",
+        "luaformatter",
+        "stylua",
+        -- Bash / sh
+        "shfmt",
+        "shellcheck",
       },
     },
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "folke/neodev.nvim" },
     config = function()
-      require "plugins.configs.lspconfig"
-      require "custom.configs.lspconfig"
+      require("plugins.configs.lspconfig")
+      require("custom.configs.lspconfig")
     end,
   },
   {
-    "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    lazy = false,
-    opts = function()
-      require "custom.configs.trouble"
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        -- Customize or remove this keymap to your liking
+        "<leader>fM",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        mode = "",
+        desc = "Format buffer",
+      },
+    },
+    config = require("custom.configs.conform"),
+  },
     end,
     config = function(_, opts)
       require("core.utils").load_mappings("trouble")
