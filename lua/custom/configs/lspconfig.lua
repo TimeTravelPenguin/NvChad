@@ -109,8 +109,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<space>fm", function()
-      vim.lsp.buf.format({ async = true })
-    end, bufopts)
+    -- Formatting done by conform.nvim
+    -- vim.keymap.set("n", "<leader>fm", function()
+    --   vim.lsp.buf.format({ async = true })
+    -- end, bufopts)
   end,
 })
