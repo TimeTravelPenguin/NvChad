@@ -1,5 +1,16 @@
 local M = {}
 
+M.disabled = {
+  n = {
+    ["<leader>fm"] = {
+      function()
+        vim.lsp.buf.format({ async = true })
+      end,
+      "LSP formatting",
+    },
+  },
+}
+
 M.general = {
   n = {
     ["<C-h>"] = { "<cmd>TmuxNavigateLeft<CR>", "Window left" },
@@ -10,12 +21,12 @@ M.general = {
     ["<C-d>"] = { "<C-d>zz", "Half page down", { remap = false } },
     ["<leader>ln"] = { "<cmd>set nu!<CR>", "Toggle line number" },
     ["<leader>lrn"] = { "<cmd>set rnu!<CR>", "Toggle relative line number" },
-    ["n"] = { "nzzzv", "Next match", { remap = false, }, },
-    ["N"] = { "Nzzzv", "Prev match", { remap = false, }, },
+    ["n"] = { "nzzzv", "Next match", { remap = false } },
+    ["N"] = { "Nzzzv", "Prev match", { remap = false } },
   },
   x = {
-    ["<leader>p"] = { "\"_dP", "Paste without yanking", { silent = true, expr = true, remap = false } }
-  }
+    ["<leader>p"] = { '"_dP', "Paste without yanking", { silent = true, expr = true, remap = false } },
+  },
 }
 
 M.dap = {
@@ -27,40 +38,59 @@ M.dap = {
     ["<F12>"] = { "<cmd>DapStepOut<CR>", "Dap: Step Out" },
     ["<Leader>b"] = { "<cmd>DapToggleBreakpoint<CR>", "Dap: Toggle Breakpoint" },
     ["<Leader>lp"] = {
-      function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end,
+      function()
+        require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+      end,
       "Dap: Set Logpoint",
     },
     ["<Leader>dr"] = { "<cmd>DapToggleRepl<CR>", "Dap: Toggle Repl" },
-    ["<Leader>dl"] = { function() require('dap').run_last() end, "Dap: Run Last" },
+    ["<Leader>dl"] = {
+      function()
+        require("dap").run_last()
+      end,
+      "Dap: Run Last",
+    },
   },
 }
 
 M.dap_ui = {
   plugin = true,
   n = {
-    ["<Leader>df"] = { function()
-      local widgets = require('dap.ui.widgets')
-      widgets.centered_float(widgets.frames)
-    end },
-    ["<Leader>ds"] = { function()
-      local widgets = require('dap.ui.widgets')
-      widgets.centered_float(widgets.scopes)
-    end },
-    ["<Leader>dh"] = { function()
-      require('dap.ui.widgets').hover()
-    end },
-    ["<Leader>dp"] = { function()
-      require('dap.ui.widgets').preview()
-    end },
+    ["<Leader>df"] = {
+      function()
+        local widgets = require("dap.ui.widgets")
+        widgets.centered_float(widgets.frames)
+      end,
+    },
+    ["<Leader>ds"] = {
+      function()
+        local widgets = require("dap.ui.widgets")
+        widgets.centered_float(widgets.scopes)
+      end,
+    },
+    ["<Leader>dh"] = {
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+    },
+    ["<Leader>dp"] = {
+      function()
+        require("dap.ui.widgets").preview()
+      end,
+    },
   },
 
   v = {
-    ["<Leader>dh"] = { function()
-      require('dap.ui.widgets').hover()
-    end },
-    ["<Leader>dp"] = { function()
-      require('dap.ui.widgets').preview()
-    end },
+    ["<Leader>dh"] = {
+      function()
+        require("dap.ui.widgets").hover()
+      end,
+    },
+    ["<Leader>dp"] = {
+      function()
+        require("dap.ui.widgets").preview()
+      end,
+    },
   },
 }
 
@@ -96,8 +126,7 @@ M.venv_selector = {
   n = {
     ["<leader>vs"] = { "<cmd>VenvSelect<cr>", "VenvSelector" },
     ["<leader>vc"] = { "<cmd>VenvSelectCached<cr>", "VenvSelector (Cache)" },
-  }
+  },
 }
-
 
 return M
