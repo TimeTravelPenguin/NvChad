@@ -1,5 +1,4 @@
 local M = {
-  plugin = true,
   n = {
     ["tro"] = { "<cmd>Trouble<CR>", "Open Trouble" },
     ["trc"] = { "<cmd>TroubleClose<CR>", "Close Trouble" },
@@ -10,10 +9,10 @@ local M = {
     ["trL"] = { "<cmd>TroubleToggle loclist<CR>", "Set Trouble: Loclist" },
     ["trgR"] = { "<cmd>TroubleToggle lsp_references<CR>", "Set Trouble: LSP References" },
 
-    ["trn"] = { "require('trouble').next", "Trouble: Next", opts, },
-    ["trp"] = { "require('trouble').previous", "Trouble: Previous", opts, },
-    ["trf"] = { "require('trouble').first", "Trouble: First", opts, },
-    ["trl"] = { "require('trouble').last", "Trouble: Last", opts, },
+    ["trn"] = { "require('trouble').next", "Trouble: Next", opts },
+    ["trp"] = { "require('trouble').previous", "Trouble: Previous", opts },
+    ["trf"] = { "require('trouble').first", "Trouble: First", opts },
+    ["trl"] = { "require('trouble').last", "Trouble: Last", opts },
   },
 }
 
