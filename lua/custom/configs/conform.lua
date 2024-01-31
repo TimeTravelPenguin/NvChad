@@ -2,17 +2,17 @@ local M = {}
 
 M.formatters_by_ft = {
   lua = { "stylua" },
-  sh = { "prettierd", "shellcheck", "shfmt" },
+  sh = { "prettier", "shellcheck", "shfmt" },
   bash = { "shellcheck", "shfmt" },
   python = { "ruff_format", "ruff_fix" },
-  json = { "prettierd" },
-  markdown = { "prettierd" },
-  html = { "prettierd" },
-  css = { "prettierd" },
-  xml = { "prettierd" },
-  yaml = { "prettierd" },
-  toml = { "prettierd" },
-  javascript = { "prettierd" },
+  json = { "prettier" },
+  markdown = { "prettier" },
+  html = { "prettier" },
+  css = { "prettier" },
+  xml = { "prettier" },
+  yaml = { "prettier" },
+  toml = { "prettier" },
+  javascript = { "prettier" },
   haskell = { "fourmolu" },
 }
 
