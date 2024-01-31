@@ -6,5 +6,4 @@ return function()
   dap.listeners.before.launch.dapui_config = dapui.open
   dap.listeners.before.event_terminated.dapui_config = dapui.close
   dap.listeners.before.event_exited.dapui_config = dapui.close
-  require("core.utils").load_mappings("dap_ui")
 end
