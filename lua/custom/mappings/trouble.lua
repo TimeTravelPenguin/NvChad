@@ -1,3 +1,5 @@
+local opts = { skip_groups = true, jump = true }
+
 local M = {
   n = {
     ["tro"] = { "<cmd>Trouble<CR>", "Open Trouble" },
@@ -9,10 +11,10 @@ local M = {
     ["trL"] = { "<cmd>TroubleToggle loclist<CR>", "Set Trouble: Loclist" },
     ["trgR"] = { "<cmd>TroubleToggle lsp_references<CR>", "Set Trouble: LSP References" },
 
-    ["trn"] = { "require('trouble').next", "Trouble: Next", opts },
-    ["trp"] = { "require('trouble').previous", "Trouble: Previous", opts },
-    ["trf"] = { "require('trouble').first", "Trouble: First", opts },
-    ["trl"] = { "require('trouble').last", "Trouble: Last", opts },
+    ["trn"] = { ":lua require('trouble').next({ skip_groups = true, jump = true })<CR>", "Trouble: Next" },
+    ["trp"] = { ":lua require('trouble').previous({ skip_groups = true, jump = true })<CR>", "Trouble: Previous" },
+    ["trf"] = { ":lua require('trouble').first({ skip_groups = true, jump = true })<CR>", "Trouble: First" },
+    ["trl"] = { ":lua require('trouble').last({ skip_groups = true, jump = true })<CR>", "Trouble: Last" },
   },
 }
 

@@ -10,6 +10,11 @@ local plugins = {
     opts = require("custom.opts.treesitter"),
   },
   {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    lazy = false,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       -- src: https://www.lazyvim.org/plugins/treesitter#nvim-treesitter-textobjects
@@ -82,15 +87,14 @@ local plugins = {
     config = require("custom.configs.dap-python"),
   },
   {
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
+  },
+  {
     "folke/neodev.nvim",
     event = "BufEnter",
     -- Setup in config/lspconfig.lua
-    opts = {},
-    config = function()
-      require("neodev").setup({
-        library = { plugins = { "nvim-dap-ui" }, types = true },
-      })
-    end,
   },
   {
     "nvimtools/none-ls.nvim",
@@ -120,6 +124,9 @@ local plugins = {
         "haskell-debug-adapter",
         "haskell-language-server",
         "fourmolu",
+        -- Rust,
+        "rust-analyzer",
+        "codelldb", -- debugger
         -- Lua
         "lua-language-server",
         "luacheck",
@@ -158,6 +165,10 @@ local plugins = {
   },
   {
     "mrcjkb/haskell-tools.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
     version = "^3", -- Recommended
     ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
     config = function()
@@ -209,6 +220,14 @@ local plugins = {
       require("custom.configs.presence")
     end,
     lazy = false,
+  },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
   },
 }
 

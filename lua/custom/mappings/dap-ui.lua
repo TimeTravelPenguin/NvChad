@@ -26,6 +26,12 @@ local M = {
       end,
       "DAP: Preview",
     },
+    ["<leader>dx"] = {
+      function()
+        require("dapui").close()
+      end,
+      "DAP: Close",
+    },
   },
 
   v = {
@@ -40,6 +46,12 @@ local M = {
         require("dap.ui.widgets").preview()
       end,
       "DAP: Preview",
+    },
+    ["<leader>dx"] = {
+      function()
+        require("dapui").close()
+      end,
+      "DAP: Close",
     },
   },
 }

@@ -47,8 +47,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    pkg_path = get_pyproj_info(args.project_root)
-    module_rel_no_prefix = args.module_path.relative_to(pkg_path.parent).with_suffix("")
+    pkg_path = Path(get_pyproj_info(args.project_root)).expanduser()
+    module_rel_no_prefix = args.module_path.relative_to(
+        pkg_path.parent
+    ).stem.expanduser()
     result = str(module_rel_no_prefix).replace("/", ".")
 
-    return result
+    print(result)

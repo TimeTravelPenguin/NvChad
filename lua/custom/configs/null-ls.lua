@@ -28,6 +28,16 @@ local hs_sources = {
   },
 }
 
+local rust_sources = {
+  name = "Rust_Sources",
+  filetypes = { "rust" },
+  sources = {
+    null_ls.builtins.code_actions.ltrs,
+    null_ls.builtins.diagnostics.ltrs,
+    null_ls.builtins.formatting.rustfmt,
+  },
+}
+
 local sh_sources = {
   name = "Shell_Sources",
   filetypes = { "bash", "sh", "zsh" },
@@ -121,6 +131,7 @@ local prettier_sources = {
 local sources = {
   py_sources,
   hs_sources,
+  rust_sources,
   sh_sources,
   docker_sources,
   markdown_sources,

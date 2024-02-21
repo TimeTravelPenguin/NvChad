@@ -3,6 +3,8 @@ local M = {}
 M.disabled = {
   n = {
     ["<leader>fm"] = "",
+    ["<B-r>"] = "",
+    ["<B-R>"] = "",
   },
 }
 
@@ -18,6 +20,11 @@ M.general = {
     ["<leader>lrn"] = { "<cmd>set rnu!<CR>", "Toggle relative line number" },
     ["n"] = { "nzzzv", "Next match", { remap = false } },
     ["N"] = { "Nzzzv", "Prev match", { remap = false } },
+    ["<leader>h"] = { ":lua require('lsp-inlayhints').toggle()<CR>", "Toggle inlayhints" },
+  },
+
+  i = {
+    ["<C-s>"] = { "<ESC><cmd> w <CR>", "Save file" },
   },
 
   x = {
