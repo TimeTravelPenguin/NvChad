@@ -52,6 +52,7 @@ local plugins = {
     name = "catppuccin",
     priority = 1000,
   },
+  { "nvim-neotest/nvim-nio" },
   {
     "danymat/neogen",
     lazy = false,
